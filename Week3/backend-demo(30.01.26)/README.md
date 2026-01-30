@@ -1,17 +1,28 @@
 # Steps to create backend
 
-1. Generate package.json
-    npm init -y  npm => node package manager
+1.Generate package.json
+   
+    npm init -y
+   
 2.Create HTTP server
-    a.Install & import "express" module
+
+   a.Install & import "express" module
+    
         npm install express
-    b.Import express module
+        
+   b.Import express module
+    
 
 HTTP Req types (CRUD operation)
-    GET  -- Read resources
-    POST -- Craete a new reoutce
-    PUT  -- Update a resource
-    DELETE -- Delete a resource
+
+   GET  -- Read resources
+    
+   POST -- Craete a new resource
+
+   PUT  -- Update a resource
+    
+   DELETE -- Delete a resource
+    
 
 USER API:
 
