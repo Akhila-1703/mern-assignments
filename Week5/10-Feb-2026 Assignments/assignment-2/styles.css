@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: white;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text {
+    width: 65%;
+}
+
+.image img {
+    width: 200px;
+    border: 1px solid #ccc;
+}
+
+ol,
+ul {
+    margin-left: 20px;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+hr {
+    margin-top: 20px;
+}
+
+.footer {
+    font-size: 12px;
+}

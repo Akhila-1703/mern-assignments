@@ -1,0 +1,43 @@
+body {
+    background-color: #e8eed7;
+    font-family: Arial, sans-serif;
+    padding: 30px;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #e8eed7;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.intro {
+    display: flex;
+    gap: 15px;
+}
+
+.intro img {
+    width: 120px;
+    border: 1px solid #999;
+}
+
+h2 {
+    margin-top: 25px;
+}
+
+ol,
+ul {
+    margin-left: 20px;
+}
+
+a {
+    color: red;
+    text-decoration: underline;
+}
+
+.link {
+    margin-top: 20px;
+}

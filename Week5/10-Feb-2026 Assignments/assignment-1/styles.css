@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+p {
+    font-size: 14px;
+}
+
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+ul {
+    margin-top: 10px;
+}

@@ -1,0 +1,69 @@
+
+### Read all users
+GET http://localhost:4000/user-api/users
+
+### Read a user by ObjectID
+GET http://localhost:4000/user-api/users/69803f3301a3448ddf4bed7c
+
+### Create a new user
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "username": "arun",
+    "password": "bandra",
+    "age": 20
+}
+
+### Update a user
+PUT http://localhost:4000/user-api/users/69803f3301a3448ddf4bed7c
+Content-Type: application/json
+
+{
+    "username": "arun",
+    "password": "bandra",
+    "age": 23
+}
+
+### Delete a user by ObjectID
+DELETE http://localhost:4000/user-api/users/69803518bf1262b9d92a89ec
+
+
+### Read all products
+GET http://localhost:4000/product-api/products
+
+### Read product by id 
+GET http://localhost:4000/product-api/products/698c5fac45713318b4552ae6
+
+### Read products by brand  
+GET http://localhost:4000/product-api/products/brand/lenovo
+
+### Create a new product
+POST http://localhost:4000/product-api/products
+Content-Type: application/json
+
+{
+    "pid": 101,
+    "productName": "laptop",
+    "price": 50000,
+    "brand": "lenovo"
+}
+
+
+### Update a product
+PUT http://localhost:4000/product-api/products/698c5fac45713318b4552ae6
+Content-Type: application/json
+
+{
+    "pid": 101,
+    "productName": "laptop",
+    "price": 45000,
+    "brand":"hp"
+}
+
+### Delete a product by id
+DELETE http://localhost:4000/product-api/products/698c5fac45713318b4552ae6
+
+
+### Add product to user cart
+PUT http://localhost:4000/user-api/user-cart/user-id/69803f3301a3448ddf4bed7c/product-id/698c5fac45713318b4552ae6
