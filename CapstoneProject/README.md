@@ -1,26 +1,101 @@
-# Backened Development
+# Backend Development
 
-1. Create git repo
-    git init 
+## Setup
 
-2. Add .gitignore file
+1. **Create Git repository**
 
-3. Create .env file for environment variables and read data from .env with "dotenv" module
-    npm install dotenv
-4. Generate package.json
-    npm init -y 
+```
+git init
+```
 
-5. Create Express app
+2. **Add .gitignore file**
 
-6. Connect to Database
+Create a `.gitignore` file and add:
 
-7. Add middlewares(body parser,err handling middlewares)
+```
+node_modules/
+.env
+```
 
-8. Design Schemas and create models
+3. **Environment variables**
 
-9. Design REST APIs for all resorces
+Create a `.env` file for sensitive data and install dotenv:
 
-## Registration & Login
+```
+npm install dotenv
+```
 
-10. Registration & Login in common for user &author . Create a seperate service to reuse
-11. The client 
+In your main file:
+
+```js
+require("dotenv").config();
+```
+
+4. **Generate package.json**
+
+```
+npm init -y
+```
+
+5. **Create Express application**
+
+Install Express:
+
+```
+npm install express
+```
+
+Create `server.js` and set up a basic Express server.
+
+6. **Connect to Database**
+
+Install Mongoose:
+
+```
+npm install mongoose
+```
+
+Connect to MongoDB using a connection string from `.env`.
+
+7. **Add Middlewares**
+
+Use:
+
+* Body parser middleware
+* Error handling middleware
+* CORS middleware if needed
+
+Example:
+
+```js
+app.use(express.json());
+```
+
+8. **Design Schemas and Models**
+
+Create schema files inside a `models/` folder and define Mongoose models.
+
+9. **Design REST APIs**
+
+Create routes for all resources inside a `routes/` folder, such as:
+
+* Users
+* Authors
+* Posts or other entities
+
+## Authentication
+
+10. **Registration and Login**
+
+Implement registration and login common for both user and author.
+
+Create a separate authentication service so the logic can be reused.
+
+11. **Client Integration**
+
+The frontend client will:
+
+* Send registration data to backend
+* Send login credentials
+* Receive authentication token
+* Use the token for protected routes
