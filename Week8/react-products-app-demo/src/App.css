@@ -1,0 +1,9 @@
+/*useLocation and usenavigate have communication so that uselocation knows what it was
+
+State management means sharing state accross application and acheive sync in state across application
+
+context api solves the problem of prop-drilling
+if a state is req by many comp then that state can be placed in contect provider which is seperate place not existed in any components
+1.sharing state 
+2.syncing state i.e if there is any update in state then context provider will broadcast change and every component will know that change
+*/

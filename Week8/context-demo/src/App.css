@@ -1,0 +1,24 @@
+/*
+1.Creating the context object =>immediately provides provider and consumer part
+2.every context obj has a context provider and a context consumer
+3.context provider is used to provide statethrough context object whereas the components can consume the state through the context object
+4.a component can consume the state of context provider with use context hook
+context does not have any state , context is a channel
+to provide state to context component has to be used 
+<A />=>selector of componentr A
+use only one state in context provider ,if u want to use one more state then provide one more context provider or else unnecessary rendering will be occuring 
+ bcz if a component is not using a state but more than one state is present in context and that context is provided to a component if there is any change in state the component will be rerendered bcz it sees the change in context and component will be 
+
+ state management
+    -redux or zustand
+1.install zustand => npm i zustand
+2.create a global store
+
+using context to create multiple states multiple context providers are necessary to avoid unnecessary rerendering
+using zustand we can use only one context and create multiple states in that and can be utilized properly with state,and without unnnecessary rerendering
+
+-useRef hook stands for use reference
+-closure in JS
+
+useEffect hook is used for side effects
+*/
