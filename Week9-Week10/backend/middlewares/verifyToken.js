@@ -36,7 +36,3 @@ export const verifyToken = (...allowedRoles) => {
   };
 };
 
-/*
-the token will send automatically if its is same origin the client tool they are not different when we make req the httponly cookie will automatically send 
-it wont be accessed by client
- */

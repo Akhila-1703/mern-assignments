@@ -199,7 +199,3 @@ function Register() {
 
 export default Register;
 
-//res.data
-//err.response.
-
-//append(fn,userObj.profileImageUrl)

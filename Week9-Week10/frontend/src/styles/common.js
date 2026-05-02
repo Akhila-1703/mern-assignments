@@ -99,30 +99,3 @@ export const emptyStateClass = "text-center text-[#a1a1a6] py-16 text-sm";
 // ─── Divider ──────────────────────────────────────────
 export const divider = "border-t border-[#e8e8ed] my-10";
 
-/*
-//fetch
-//GET
-let resObj = await fetch("", { method: "GET" },{withCredetils:"true"})
-
-if (res.status !== 200) {
-    throw new Error("")
-}
-let res = await resObj.json() //{message:"",payload:""}
-
-//POST
-let reObj = await fetch("", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    
-})
-
-
-//axios
-//GET
-let resObj1 = await axios.get("")
-let res1 = resObj1.data //{message:"",payload:""} npm install axios
-
-//POST
-let reO = await axios.post("", obj)
-let res2=reO.data
-*/

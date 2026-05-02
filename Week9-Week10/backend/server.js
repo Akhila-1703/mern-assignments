@@ -13,7 +13,13 @@ config(); //process.env
 //Create express application
 const app = exp();
 //use cors middleware
-app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://blog-app-chi-three-99.vercel.app"
+  ],
+  credentials: true
+}));
 //add body parser middleware
 app.use(exp.json());
 //add cookie parser middleware
@@ -94,115 +100,3 @@ app.use((err, req, res, next) => {
     error: "Server side error",
   });
 });
-// app.use((err, req, res, next) => {
-//   console.log("Error name:", err.name);
-//   console.log("Error code:", err.code);
-//   console.log("Error cause:", err.cause);
-//   console.log("Full error:", JSON.stringify(err, null, 2));
-//   //ValidationError
-//   if (err.name === "ValidationError") {
-//     return res.status(400).json({ message: "error occurred", error: err.message });
-//   }
-//   //CastError
-//   if (err.name === "CastError") {
-//     return res.status(400).json({ message: "error occurred", error: err.message });
-//   }
-//   const errCode = err.code ?? err.cause?.code ?? err.errorResponse?.code;
-//   const keyValue = err.keyValue ?? err.cause?.keyValue ?? err.errorResponse?.keyValue;
-
-//   if (errCode === 11000) {
-//     const field = Object.keys(keyValue)[0];
-//     const value = keyValue[field];
-//     return res.status(409).json({
-//       message: "error occurred",
-//       error: `${field} "${value}" already exists`,
-//     });
-//   }
-
-//   //send server side error
-//   res.status(500).json({ message: "error occurred", error: "Server side error" });
-// });
-// app.use((err, req, res, next) => {
-//   const status = err.status || err.statusCode || 500;
-//   const isProduction = process.env.NODE_ENV === "production";
-
-//   let message = err.message || "Unexpected error";
-//   let details;
-
-//   // Mongoose validation errors
-//   if (err.name === "ValidationError") {
-//     message = "Validation error";
-//     details = Object.values(err.errors || {}).map((e) => e.message);
-//   }
-
-//   // Mongoose cast errors (e.g. invalid ObjectId)
-//   if (err.name === "CastError") {
-//     message = "Invalid value for field";
-//     details = [`${err.path} is invalid`];
-//   }
-
-//   // Duplicate key errors
-//   if (err.code === 11000) {
-//     message = "Duplicate value";
-//     const fields = Object.keys(err.keyValue || {});
-//     details = fields.length ? fields.map((f) => `${f} already exists`) : undefined;
-//   }
-
-//   // Strict mode "throw" errors from schema
-//   if (err.name === "StrictModeError") {
-//     message = "Invalid fields provided";
-//     details = err.path ? [`${err.path} is not allowed`] : undefined;
-//   }
-
-//   // Default to 400 for known client errors without explicit status
-//   const finalStatus = status === 500 && (err.name || err.code) ? 400 : status;
-
-//   const response = {
-//     message,
-//     status: finalStatus,
-//   };
-
-//   if (details) response.details = details;
-//   if (!isProduction) {
-//     response.stack = err.stack;
-//   }
-
-//   console.log("err :", err);
-//   res.status(finalStatus).json(response);
-// });
-
-/*
-app.use((err, req, res, next) => {
-  // Mongoose validation error
-    if (err.name === "ValidationError") {
-    return res.status(400).json({
-        message: "Validation failed",
-        errors: err.errors,
-    });
-    }
-  // Invalid ObjectId
-    if (err.name === "CastError") {
-    return res.status(400).json({
-        message: "Invalid ID format",
-    });
-    }
-  // Duplicate key
-    if (err.code === 11000) {
-    return res.status(409).json({
-        message: "Duplicate field value",
-    });
-    }
-    res.status(500).json({
-    message: "Internal Server Error",
-    });
-});
-app.use((err, req, res, next) => {
-    console.log("err:", err)
-    res.status(500).json({
-        message: "error",
-        reason: err.message
-    })
-})
-
-
-*/
