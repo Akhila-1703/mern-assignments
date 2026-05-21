@@ -1,169 +1,66 @@
-# User Management Backend
+# ⚙️ User Management Backend  
+### Node.js • Express.js • MongoDB • Mongoose
 
-Backend service for the User Management Application built using **Node.js, Express.js, and MongoDB**.
+A scalable REST API backend built for managing users with **creation, retrieval, activation, and soft deletion workflows**.
 
-This backend provides REST APIs to create, read, activate, and soft delete users.
-
-## Live Backend Deployment
-
-Backend URL:  
-:contentReference[oaicite:0]{index=0}
+This backend follows a **modular architecture**, separating API routes, database models, environment configuration, and server initialization for maintainability and easier deployment.
 
 ---
 
-# Tech Stack
+# 🌍 Live Deployment
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- CORS
-- Dotenv
+### 🚀 Backend URL
+
+🔗 https://user-management-0y95.onrender.com
 
 ---
 
-# Backend Folder Structure
+# 🏗️ 1. Architecture & System Flow
 
-backend/
-│
-├── APIs/
-│ └── UserAPI.js # User API routes
-│
-├── models/
-│ └── UserModel.js # MongoDB schema/model
-│
-├── .env # Environment variables
-│
-├── package.json # Project dependencies
-│
-├── package-lock.json
-│
-└── server.js # Entry point
+This backend follows a clean layered architecture.
 
+```text
+Client Request
+      │
+      ▼
+Express Server
+      │
+      ▼
+Route Layer (UserAPI)
+      │
+      ▼
+Validation & Business Logic
+      │
+      ▼
+Mongoose Models
+      │
+      ▼
+MongoDB Database
+      │
+      ▼
+JSON Response
+```
+
+### Architecture Highlights
+
+✅ Modular route separation  
+✅ MongoDB schema validation  
+✅ Environment-based configuration  
+✅ RESTful API design  
+✅ Soft delete implementation  
+✅ Error handling middleware ready  
 
 ---
 
-# Packages Used
+# 🚀 2. Local Installation & Setup
 
-## 1. express
-
-Used to:
-
-- Create backend server
-- Handle HTTP requests
-- Define API routes
-- Middleware handling
-
-Install:
+## Clone Repository
 
 ```bash
-npm install express
+git clone <repository-url>
 ```
 
-Usage:
-
-```js
-import exp from "express";
-```
-
----
-
-## 2. mongoose
-
-Used to:
-
-- Connect Node.js with MongoDB
-- Create schemas
-- Perform CRUD operations
-
-Install:
-
-```bash
-npm install mongoose
-```
-
-Usage:
-
-```js
-import { connect } from "mongoose";
-```
-
----
-
-## 3. dotenv
-
-Used to:
-
-- Store sensitive information in environment variables
-- Access `.env` values
-
-Install:
-
-```bash
-npm install dotenv
-```
-
-Usage:
-
-```js
-import { config } from "dotenv";
-
-config();
-```
-
----
-
-## 4. cors
-
-Used to:
-
-- Allow frontend and backend communication
-
-Install:
-
-```bash
-npm install cors
-```
-
-Usage:
-
-```js
-import cors from "cors";
-```
-
----
-
-## 5. react-router
-
-Present in package.json.
-
-Install:
-
-```bash
-npm install react-router
-```
-
-Purpose:
-Currently not required inside backend code.
-It can be removed if unused.
-
-Remove:
-
-```bash
-npm uninstall react-router
-```
-
----
-
-# Installation
-
-## Clone Project
-
-```bash
-git clone <repo-url>
-```
-
-Move to backend:
+Move into backend:
 
 ```bash
 cd backend
@@ -175,15 +72,21 @@ Install dependencies:
 npm install
 ```
 
-Start server:
+Run server:
 
 ```bash
 node server.js
 ```
 
+Server:
+
+```text
+http://localhost:4000
+```
+
 ---
 
-# Environment Variables (.env)
+# 🔐 3. Environment Configuration
 
 Create `.env`
 
@@ -203,7 +106,180 @@ DB_URL=mongodb+srv://username:password@cluster.mongodb.net/userdb
 
 ---
 
-# Database Schema
+# 📂 4. Backend Project Structure
+
+```text
+backend/
+│
+├── APIs/
+│   └── UserAPI.js
+│
+├── models/
+│   └── UserModel.js
+│
+├── .env
+│
+├── package.json
+│
+├── package-lock.json
+│
+└── server.js
+```
+
+---
+
+## APIs/
+
+Contains all backend route definitions.
+
+### UserAPI.js
+
+Responsible for:
+
+- Create User
+- Get Users
+- Get User By ID
+- Soft Delete User
+- Activate User
+
+---
+
+## models/
+
+Contains MongoDB schemas.
+
+### UserModel.js
+
+Responsible for:
+
+- Data structure
+- Validation
+- Collection mapping
+
+---
+
+## server.js
+
+Backend bootstrap file.
+
+Responsibilities:
+
+- Express initialization
+- Database connection
+- Middleware setup
+- Route mounting
+- Server startup
+
+---
+
+## package.json
+
+Contains:
+
+- Dependencies
+- Scripts
+- Metadata
+
+---
+
+# 📦 5. Technology Stack & Package Evaluation
+
+| Package | Purpose |
+|----------|----------|
+| express | REST API server and routing |
+| mongoose | MongoDB object modeling |
+| cors | Frontend communication |
+| dotenv | Environment variable management |
+
+---
+
+## Express
+
+Install:
+
+```bash
+npm install express
+```
+
+Purpose:
+
+- Server creation
+- Route handling
+- Middleware execution
+
+Import:
+
+```js
+import exp from "express"
+```
+
+---
+
+## Mongoose
+
+Install:
+
+```bash
+npm install mongoose
+```
+
+Purpose:
+
+- MongoDB connection
+- Schema creation
+- CRUD operations
+
+Import:
+
+```js
+import { connect } from "mongoose"
+```
+
+---
+
+## CORS
+
+Install:
+
+```bash
+npm install cors
+```
+
+Purpose:
+
+- Enable frontend access
+
+Import:
+
+```js
+import cors from "cors"
+```
+
+---
+
+## Dotenv
+
+Install:
+
+```bash
+npm install dotenv
+```
+
+Purpose:
+
+- Secure configuration
+
+Import:
+
+```js
+import { config } from "dotenv"
+
+config()
+```
+
+---
+
+# 🗄️ 6. Database Schema
 
 ## User Schema
 
@@ -217,17 +293,21 @@ DB_URL=mongodb+srv://username:password@cluster.mongodb.net/userdb
 }
 ```
 
-### Schema Rules
+---
+
+## Schema Rules
 
 | Field | Type | Required |
-|--------|------|----------|
+|-------|------|----------|
 | name | String | Yes |
 | email | String | Yes |
 | dateOfBirth | Date | Yes |
 | mobileNumber | Number | No |
 | status | Boolean | Default true |
 
-Additional:
+---
+
+Additional Configuration
 
 ```js
 timestamps:true
@@ -237,27 +317,17 @@ versionKey:false
 
 Meaning:
 
-- timestamps → createdAt & updatedAt added automatically
-- strict → extra fields not allowed
-- versionKey → removes `__v`
+| Option | Description |
+|---------|-------------|
+| timestamps | Adds createdAt and updatedAt |
+| strict | Prevents unknown fields |
+| versionKey | Removes __v |
 
 ---
 
-# Backend Flow
+# 🌐 7. API Reference
 
-Client  
-↓  
-Express Server  
-↓  
-API Routes  
-↓  
-Mongoose  
-↓  
-MongoDB
-
----
-
-# API Base URL
+### Base URL
 
 ```text
 https://user-management-0y95.onrender.com/user-api
@@ -265,24 +335,20 @@ https://user-management-0y95.onrender.com/user-api
 
 ---
 
-# APIs
+## 🟢 Create User
 
-## 1. Create User
+| Method | Endpoint |
+|---------|----------|
+| POST | /users |
 
-### POST
-
-```http
-/user-api/users
-```
-
-Request:
+Request
 
 ```json
 {
- "name":"Akhila",
- "email":"akhila@gmail.com",
- "dateOfBirth":"2003-08-10",
- "mobileNumber":9876543210
+"name":"Akhila",
+"email":"akhila@gmail.com",
+"dateOfBirth":"2003-08-10",
+"mobileNumber":9876543210
 }
 ```
 
@@ -290,193 +356,191 @@ Response
 
 ```json
 {
- "message":"User created",
- "payload":{}
+"message":"User created",
+"payload":{}
 }
 ```
 
 ---
 
-## 2. Get All Active Users
+## 🔵 Get Active Users
 
-### GET
+| Method | Endpoint |
+|---------|----------|
+| GET | /users |
 
-```http
-/user-api/users
-```
-
-Response:
-
-```json
-{
- "message":"users",
- "payload":[]
-}
-```
-
-Returns users with:
+Returns:
 
 ```js
 status:true
 ```
 
+Response
+
+```json
+{
+"message":"users",
+"payload":[]
+}
+```
+
 ---
 
-## 3. Get User By ID
+## 🟡 Get User By ID
 
-### GET
-
-```http
-/user-api/users/:id
-```
+| Method | Endpoint |
+|---------|----------|
+| GET | /users/:id |
 
 Example:
 
 ```http
-/user-api/users/685ab123
+/users/685ab123
 ```
 
-Success:
+Success
 
 ```json
 {
- "message":"user found",
- "payload":{}
-}
-```
-
-Failure:
-
-```json
-{
- "message":"user not found"
+"message":"user found",
+"payload":{}
 }
 ```
 
 ---
 
-## 4. Soft Delete User
+## 🔴 Soft Delete User
 
-### DELETE
+| Method | Endpoint |
+|---------|----------|
+| DELETE | /users/:id |
 
-```http
-/user-api/users/:id
-```
-
-What happens:
+Operation:
 
 ```js
 status=false
 ```
 
-Response:
+Response
 
 ```json
 {
- "message":"user deleted"
+"message":"user deleted"
 }
 ```
 
 ---
 
-## 5. Activate User
+## 🟣 Activate User
 
-### PATCH
+| Method | Endpoint |
+|---------|----------|
+| PATCH | /users/:id |
 
-```http
-/user-api/users/:id
-```
-
-What happens:
+Operation:
 
 ```js
 status=true
 ```
 
-Response:
+Response
 
 ```json
 {
- "message":"user activated",
- "payload":{}
+"message":"user activated",
+"payload":{}
 }
 ```
 
 ---
 
-# Error Handling
-
-Implemented:
+# 🛡️ 8. Error Handling
 
 ### Validation Error
 
 ```json
 {
- "message":"Validation failed"
+"message":"Validation failed"
 }
 ```
+
+---
 
 ### Invalid Mongo ID
 
 ```json
 {
- "message":"Invalid ID format"
+"message":"Invalid ID format"
 }
 ```
+
+---
 
 ### Duplicate Email
 
 ```json
 {
- "message":"Duplicate field value"
-}
-```
-
-### Server Error
-
-```json
-{
- "message":"Internal Server Error"
+"message":"Duplicate field value"
 }
 ```
 
 ---
 
-# CORS Configuration
+### Internal Error
 
-Allowed Origins:
+```json
+{
+"message":"Internal Server Error"
+}
+```
+
+---
+
+# 🔗 9. CORS Configuration
+
+Allowed Origins
 
 ```js
 [
- "http://localhost:5173",
- "https://user-management-0y95.onrender.com"
+"http://localhost:5173",
+"https://user-management-0y95.onrender.com"
 ]
 ```
 
 ---
 
-# Run Backend
+# ▶️ 10. Running Backend
 
-Development:
+Development
 
 ```bash
 node server.js
 ```
 
-Server starts:
+Server Output
 
 ```text
-server started on port 4000
+Server started on port 4000
+Connected to MongoDB
 ```
 
 ---
 
-# Future Improvements
+# 🔮 11. Future Enhancements
 
-- Authentication
-- JWT Authorization
+- JWT Authentication
+- Authorization
+- User Search
 - Pagination
-- Search users
-- Update user API
-- Logging
-- Docker deployment
+- Update User API
+- Request Logging
+- Docker Deployment
+- Unit Testing
+- Swagger Documentation
+
+---
+
+## 👩‍💻 Developed By
+
+**Akhila**  
+User Management Backend Project
