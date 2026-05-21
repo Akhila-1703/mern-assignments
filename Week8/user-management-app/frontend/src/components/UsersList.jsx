@@ -21,7 +21,8 @@ function UsersList() {
         //update the state
         setUsers(resObj.payload);
         } else {
-        // handle non-200 responses
+        const text = await res.text().catch(() => '');
+        throw new Error(`GET ${apiBaseUrl}/user-api/users failed (${res.status}): ${text}`);
         }
 
     } catch (err) {
