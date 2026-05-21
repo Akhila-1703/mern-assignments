@@ -9,8 +9,9 @@ function UsersList() {
     useEffect(() => {
     async function getUsers() {
     try {
-        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+        const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
         let res = await fetch(`${apiBaseUrl}/user-api/users`, {
+
         method: "GET",
         });
 
@@ -20,7 +21,9 @@ function UsersList() {
         //update the state
         setUsers(resObj.payload);
         } else {
+        // handle non-200 responses
         }
+
     } catch (err) {
         console.log(err)
         }
