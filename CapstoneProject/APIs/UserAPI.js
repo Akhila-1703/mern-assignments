@@ -19,28 +19,36 @@ userRoute.post('/users', async (req, res) => {
 
 // read all articles (protected)
 userRoute.get("/articles/:userId", verifyToken, async (req, res) => {
-    // get all active articles
-    let articles = await ArticleModel.find({ isArticleActive: true })
-    // send res
+    const { userId } = req.params
+
+    // currently articles are filtered by active state only
+    // (userId can be used later if you want per-user filtering)
+    const articles = await ArticleModel.find({ isArticleActive: true })
     res.status(200).json({ message: "Articles fetched", payload: articles })
 })
 
 
 // add comment to an article (protected)
 userRoute.post('/articles', verifyToken, async (req, res) => {
-    // get data from req body
-    let { articleId, comment } = req.body
+    const { articleId, comment } = req.body
 
-    // check whether article is present
-    let article = await ArticleModel.findById(articleId)
+    if (!articleId) {
+        return res.status(400).json({ message: "articleId is required" })
+    }
+    if (!comment || typeof comment !== 'string') {
+        return res.status(400).json({ message: "comment must be a non-empty string" })
+    }
+
+    const article = await ArticleModel.findById(articleId)
     if (!article || article.isArticleActive === false) {
         return res.status(404).json({ message: "Article not found" })
     }
 
-    // add comment to article
-    article.comments.push(comment)
-    let updatedArticle = await article.save()
+    // schema expects { user, comment }
+    const { userId: commenterId } = req.user || {}
+    article.comments.push({ user: commenterId, comment })
+    const updatedArticle = await article.save()
 
-    // send res
-    res.status(201).json({message: "Comment added",payload: updatedArticle})
+    res.status(201).json({ message: "Comment added", payload: updatedArticle })
 })
+

@@ -35,19 +35,26 @@ commonRouter.get('/logout', async (req, res) => {
 
 
 //change password
-commonRouter.put('/change-password',verifyToken, async (req, res) => {
-    //get current password and new password
-    let { email, currentPassword, newPassword } = req.body
-    let user = await UserTypeModel.findOne({ email })
-    //check the current password is correct 
+commonRouter.put('/change-password', verifyToken, async (req, res) => {
+    const { email, currentPassword, newPassword } = req.body
+
+    if (!email || !currentPassword || !newPassword) {
+        return res.status(400).json({ message: "email, currentPassword and newPassword are required" })
+    }
+
+    const user = await UserTypeModel.findOne({ email })
+    if (!user) {
+        return res.status(404).json({ message: "User not found" })
+    }
+
     const matchPassword = await bcrypt.compare(currentPassword, user.password)
     if (!matchPassword) {
-        return res.json({ message: "Invalid password" })
+        return res.status(401).json({ message: "Invalid password" })
     }
-    //replace current password with new password
-    user.password=newPassword
-    user.password = await bcrypt.hash(user.password, 10)
-    user.save()
-    //send res
-    res.json({message:"Password is updated"})
+
+    user.password = await bcrypt.hash(newPassword, 10)
+    await user.save()
+
+    return res.json({ message: "Password is updated" })
 })
+

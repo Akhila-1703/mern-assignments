@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { CounterContext } from '../contexts/CounterContext'
+import { CounterContext } from '../contexts/CounterContext.js'
 import { useTest } from '../store/TestStore.js'
 
-function A() {
+function B() {
     //const {y,incrementY}=useTest()
     let y = useTest((state) => state.y)
     let incrementY=useTest((state)=>state.incrementY)
@@ -22,4 +22,4 @@ function A() {
     )
 }
 
-export default A
+export default B

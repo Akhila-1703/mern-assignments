@@ -288,15 +288,4 @@ console.log("Final account balance:", finalBalance);
 console.log("First debit transaction:", firstDebit);
 console.log("Index of transaction with amount 10000:", index10000);
 
-if (!validPriorities.includes(priority)) {
-        return 'Priority must be low, medium, or high';
-    }
-  return true;
-  
 
-
-  function isValidDate(dateString) {
-    let inputDate = new Date(dateString);
-    let dateStr = inputDate.toISOString().split('T')[0];
-    return dateStr === dateString;
-}

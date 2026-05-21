@@ -1,5 +1,6 @@
 import exp from 'express'
 import { UserTypeModel } from '../models/UserModel.js'
+import { ArticleModel } from '../models/ArticleModel.js'
 export const adminRoute = exp.Router()
 
 
@@ -23,9 +24,10 @@ adminRoute.put('/block/:id', async (req, res) => {
         return res.json({message:"User not found"})
     }
     //check if user is already blocked
-    if (user.isActive==false) {
-        return res.json({message:"User already blocked previously"})
+    if (user.isActive === false) {
+        return res.json({ message: "User already blocked previously" })
     }
+
     //update user status to blocked
     let blockUser = await UserTypeModel.findByIdAndUpdate(uid, { $set: { isActive: false } })
     //send confirmation res
@@ -44,9 +46,10 @@ adminRoute.put('/unblock/:id', async (req, res) => {
         return res.json({message:"User not found"})
     }
     //check if user is already unblocked
-    if (user.isActive==true) {
-        return res.json({message:"User already unblocked previously"})
+    if (user.isActive === true) {
+        return res.json({ message: "User already unblocked previously" })
     }
+
     //update user status to active
     let blockUser = await UserTypeModel.findByIdAndUpdate(uid, { $set: { isActive: true } })
     //send confirmation res
