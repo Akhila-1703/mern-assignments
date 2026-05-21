@@ -20,6 +20,10 @@ function AddUser() {
     // make HTTP POST req to create new user
     try {
       const apiBaseUrl = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+      // If no API URL is configured and we're not on localhost, surface a clear error
+      if (!apiBaseUrl && window.location.hostname !== 'localhost') {
+        throw new Error('VITE_API_URL is not configured for production. Set VITE_API_URL to your backend URL.');
+      }
       let res = await fetch(`${apiBaseUrl}/user-api/users`, {
 
         method: "POST",
