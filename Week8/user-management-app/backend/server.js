@@ -1,85 +1,106 @@
-import exp from 'express'
-import { connect } from 'mongoose'
+// Read environment variables
 import { config } from 'dotenv'
-import { UserApp } from './APIs/UserAPI.js'
-import cors from 'cors'
-//read environment varaibles
 config()
 
+// Imports
+import exp from 'express'
+import { connect } from 'mongoose'
 
-//create HTTP server
+import { UserApp } from './APIs/UserAPI.js'
+
+import cors from 'cors'
+
+// Create express server
 const app = exp()
 
-//add cors
-// Configure CORS to allow the frontend origin(s).
-// Set FRONTEND_URLS in your deployment to a comma-separated list of allowed frontend origins.
-// Example: FRONTEND_URLS=https://user-management-app-black-iota.vercel.app,http://localhost:5173
+// Add CORS middleware
+// FRONTEND_URLS example:
+// FRONTEND_URLS=https://user-management-app-black-iota.vercel.app,http://localhost:5173
 const allowedOrigins = (process.env.FRONTEND_URLS || 'http://localhost:5173')
-    .split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean);
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean)
 
-console.log('Allowed CORS origins:', allowedOrigins);
-app.use(cors({
+console.log("Allowed CORS origins:", allowedOrigins)
+
+app.use(
+  cors({
     origin: (origin, callback) => {
-        // allow requests with no origin (e.g. curl or mobile apps)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        return callback(new Error(`Origin ${origin} not allowed by CORS`));
+      // Allow requests without browser origin
+      if (!origin) return callback(null, true)
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true)
+      }
+
+      return callback(
+        new Error(`Origin ${origin} not allowed by CORS`)
+      )
     },
     optionsSuccessStatus: 200,
-}))
-//add body parser middleware
+  })
+)
+
+// Add body parser middleware
 app.use(exp.json())
-//forward req to UserAPI if path satrts with /user-api
-app.use('/user-api',UserApp)
-//connect to DB
+
+// Forward requests to UserAPI
+app.use('/user-api', UserApp)
+
+// Connect to MongoDB and start server
 const connectDB = async () => {
-    try {
-        await connect(process.env.DB_URL)
-        console.log("DB connection succesfull")
-        //assign port number
-        const port = process.env.PORT
-        // start http server
-        app.listen(port,()=>console.log(`server started on port ${port}`))
-    } catch (err) {
-        console.log("Err in DB connection :",err)
-    }
+  try {
+    await connect(process.env.DB_URL)
+
+    console.log("DB connection successful")
+
+    const port = process.env.PORT
+
+    app.listen(port, () =>
+      console.log(`server started on port ${port}`)
+    )
+  } catch (err) {
+    console.log("Err in DB connection:", err)
+  }
 }
 
+// Start server
 connectDB()
-//add error handling middleware
-/*app.use((err, req, res, next) => {
-    console.log("err in middleware:",err)
-    res.status(500).json({message:"error",description: err.message})
-    //mongoose validation error
-    if (err.name === "ValidationError") {
-        return res.status(400).json({message:"Validation failed"})
-    }
-})*/
+
+// Invalid route handler
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Invalid path",
+  })
+})
+
+// Global error handler
 app.use((err, req, res, next) => {
-    // Mongoose validation error
-    if (err.name === "ValidationError") {
+
+  // Validation error
+  if (err.name === "ValidationError") {
     return res.status(400).json({
-    message: "Validation failed",
-    errors: err.errors,
-    });
-}
-    // Invalid ObjectId
-    if (err.name === "CastError") {
+      message: "Validation failed",
+      errors: err.errors,
+    })
+  }
+
+  // Invalid ObjectId
+  if (err.name === "CastError") {
     return res.status(400).json({
-    message: "Invalid ID format",
-    });
-    }
-    // Duplicate key
-    if (err.code === 11000) {
+      message: "Invalid ID format",
+    })
+  }
+
+  // Duplicate key
+  if (err.code === 11000) {
     return res.status(409).json({
-    message: "Duplicate field value",
-    });
-    }
-    res.status(500).json({
+      message: "Duplicate field value",
+    })
+  }
+
+  // Generic error
+  res.status(500).json({
     message: "Internal Server Error",
-});
-});
+  })
+})
