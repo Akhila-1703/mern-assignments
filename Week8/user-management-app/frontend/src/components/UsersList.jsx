@@ -9,7 +9,8 @@ function UsersList() {
     useEffect(() => {
     async function getUsers() {
     try {
-        let res = await fetch("http://localhost:4000/user-api/users", {
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+        let res = await fetch(`${apiBaseUrl}/user-api/users`, {
         method: "GET",
         });
 

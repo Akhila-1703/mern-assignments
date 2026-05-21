@@ -12,7 +12,11 @@ const app = exp()
 
 //add cors
 app.use(cors({
-    origin:['http://localhost:5173']
+    // Allow deployed frontend and local dev
+    origin: [
+        'http://localhost:5173',
+        'https://user-management-0y95.onrender.com'
+    ]
 }))
 //add body parser middleware
 app.use(exp.json())
