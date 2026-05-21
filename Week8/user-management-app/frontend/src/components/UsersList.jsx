@@ -9,7 +9,7 @@ function UsersList() {
     useEffect(() => {
     async function getUsers() {
     try {
-        const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
+        const apiBaseUrl = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
         let res = await fetch(`${apiBaseUrl}/user-api/users`, {
 
         method: "GET",

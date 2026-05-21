@@ -19,7 +19,7 @@ function AddUser() {
     setLoading(true);
     // make HTTP POST req to create new user
     try {
-      const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
+      const apiBaseUrl = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
       let res = await fetch(`${apiBaseUrl}/user-api/users`, {
 
         method: "POST",
