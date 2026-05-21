@@ -12,21 +12,24 @@ const app = exp()
 
 //add cors
 // Configure CORS to allow the frontend origin(s).
-// Set FRONTEND_URL in your deployment (e.g. Vercel) to the frontend origin.
-const allowedOrigins = [
-    process.env.FRONTEND_URL || 'http://localhost:5173',
-    process.env.OTHER_FRONTEND_URL || 'https://user-management-0y95.onrender.com'
-];
+// Set FRONTEND_URLS in your deployment to a comma-separated list of allowed frontend origins.
+// Example: FRONTEND_URLS=https://user-management-app-black-iota.vercel.app,http://localhost:5173
+const allowedOrigins = (process.env.FRONTEND_URLS || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+console.log('Allowed CORS origins:', allowedOrigins);
 app.use(cors({
     origin: (origin, callback) => {
-        // allow requests with no origin (e.g. mobile apps, curl)
+        // allow requests with no origin (e.g. curl or mobile apps)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1) {
+        if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
-        // Not allowed by CORS
-        return callback(new Error('Not allowed by CORS'));
-    }
+        return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
+    optionsSuccessStatus: 200,
 }))
 //add body parser middleware
 app.use(exp.json())
